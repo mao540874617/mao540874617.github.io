@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="bash基本功能 别名与快捷键 bash常用快捷键   输出重定向 多命令顺序执行与管道命令 通配符和其他特殊符号 bash中其他特殊符号   bash变量 用户自定义变量,变量设置规则 变量分类 环境变量 系统常见环境变量 PATH 系统查找命令的路径 位置参数变量 预定义变量 接收键盘输入       环境变量配置文件-简介 主要的环境变量配置文件   系统默认语言    bash基本功">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shell基础">
+<meta property="og:url" content="http://yoursite.com/2020/07/16/shell%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="bash基本功能 别名与快捷键 bash常用快捷键   输出重定向 多命令顺序执行与管道命令 通配符和其他特殊符号 bash中其他特殊符号   bash变量 用户自定义变量,变量设置规则 变量分类 环境变量 系统常见环境变量 PATH 系统查找命令的路径 位置参数变量 预定义变量 接收键盘输入       环境变量配置文件-简介 主要的环境变量配置文件   系统默认语言    bash基本功">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-16T04:25:48.000Z">
+<meta property="article:modified_time" content="2020-07-16T04:32:56.300Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/07/16/shell基础/"/>
+
+
+
+
+
+  <title>shell基础 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/16/shell%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">shell基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-16T12:25:48+08:00">
+                2020-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <!-- TOC -->
+
+<ul>
+<li><a href="#bash基本功能">bash基本功能</a><ul>
+<li><a href="#别名与快捷键">别名与快捷键</a></li>
+<li><a href="#bash常用快捷键">bash常用快捷键</a></li>
+</ul>
+</li>
+<li><a href="#输出重定向">输出重定向</a><ul>
+<li><a href="#多命令顺序执行与管道命令">多命令顺序执行与管道命令</a></li>
+<li><a href="#通配符和其他特殊符号">通配符和其他特殊符号</a></li>
+<li><a href="#bash中其他特殊符号">bash中其他特殊符号</a></li>
+</ul>
+</li>
+<li><a href="#bash变量">bash变量</a><ul>
+<li><a href="#用户自定义变量变量设置规则">用户自定义变量,变量设置规则</a></li>
+<li><a href="#变量分类">变量分类</a></li>
+<li><a href="#环境变量">环境变量</a><ul>
+<li><a href="#系统常见环境变量">系统常见环境变量</a><ul>
+<li><a href="#path-系统查找命令的路径">PATH 系统查找命令的路径</a></li>
+<li><a href="#位置参数变量">位置参数变量</a></li>
+<li><a href="#预定义变量">预定义变量</a></li>
+<li><a href="#接收键盘输入">接收键盘输入</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#环境变量配置文件-简介">环境变量配置文件-简介</a><ul>
+<li><a href="#主要的环境变量配置文件">主要的环境变量配置文件</a></li>
+</ul>
+</li>
+<li><a href="#系统默认语言">系统默认语言</a></li>
+</ul>
+<!-- /TOC -->
+
+<h1 id="bash基本功能"><a href="#bash基本功能" class="headerlink" title="bash基本功能"></a>bash基本功能</h1><h2 id="别名与快捷键"><a href="#别名与快捷键" class="headerlink" title="别名与快捷键"></a>别名与快捷键</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">alias [别名]&#x3D;”[原命令]” </span><br><span class="line"></span><br><span class="line">设定别名,alias查询命令别名  </span><br><span class="line"></span><br><span class="line">通过修改 vi&#x2F;root&#x2F;.bashrc 可以使得别名永久生效</span><br></pre></td></tr></table></figure>
+
+<h2 id="bash常用快捷键"><a href="#bash常用快捷键" class="headerlink" title="bash常用快捷键"></a>bash常用快捷键</h2><table>
+<thead>
+<tr>
+<th align="center">快捷键</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ctrl + C</td>
+<td align="center">强制终止当前命令</td>
+</tr>
+<tr>
+<td align="center">ctrl + L</td>
+<td align="center">清屏,相当于clear</td>
+</tr>
+<tr>
+<td align="center">ctrl + U</td>
+<td align="center">删除或剪切光标前的命令</td>
+</tr>
+<tr>
+<td align="center">ctrl + K</td>
+<td align="center">删除或剪切光标后的命令</td>
+</tr>
+<tr>
+<td align="center">ctrl + Y</td>
+<td align="center">黏贴ctrl+u或ctrl+k的内容</td>
+</tr>
+<tr>
+<td align="center">ctrl + R</td>
+<td align="center">在历史命令中搜索,按下后就会出现搜索界面</td>
+</tr>
+<tr>
+<td align="center">crtl + D</td>
+<td align="center">退出当前终端</td>
+</tr>
+</tbody></table>
+<h1 id="输出重定向"><a href="#输出重定向" class="headerlink" title="输出重定向"></a>输出重定向</h1><table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">[命令] &amp;&gt; [文件]</td>
+<td align="center">以覆盖的方式吧正确的命令和错误的放到一个文件夹中</td>
+</tr>
+<tr>
+<td align="center">[命令] &amp;&gt;&gt; [文件]</td>
+<td align="center">以追加的方式吧正确的命令和错误的放到一个文件夹中</td>
+</tr>
+<tr>
+<td align="center">[命令]&amp;&gt;&gt;[文件1] 2&amp;&gt;&gt;[文件2]</td>
+<td align="center">把正确的内容放到文件一,错误的放到文件2</td>
+</tr>
+</tbody></table>
+<h2 id="多命令顺序执行与管道命令"><a href="#多命令顺序执行与管道命令" class="headerlink" title="多命令顺序执行与管道命令"></a>多命令顺序执行与管道命令</h2><table>
+<thead>
+<tr>
+<th align="center">命令格式</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">命令1 ; 命令2</td>
+<td align="center">多个命令之间没有逻辑关系</td>
+</tr>
+<tr>
+<td align="center">命令1&amp;&amp;命令2</td>
+<td align="center">逻辑与,只有1正确执行,才会正确执行命令2</td>
+</tr>
+<tr>
+<td align="center">命令1 | 命令2</td>
+<td align="center">命令2 命令1的正确输出作为命令2的操作对象</td>
+</tr>
+</tbody></table>
+<h2 id="通配符和其他特殊符号"><a href="#通配符和其他特殊符号" class="headerlink" title="通配符和其他特殊符号"></a>通配符和其他特殊符号</h2><table>
+<thead>
+<tr>
+<th align="center">通配符</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">?</td>
+<td align="center">匹配任意一个字符</td>
+</tr>
+<tr>
+<td align="center">.</td>
+<td align="center">匹配任意多个字符,可以是0个,即任何内容</td>
+</tr>
+<tr>
+<td align="center">[]</td>
+<td align="center">匹配中括号中任意一个字符,如[abc]代表一定匹配一个字符,或者是a,或者是b,或者是c</td>
+</tr>
+<tr>
+<td align="center">[-]</td>
+<td align="center">匹配中括号中的任意一个字符,-代表范围[a-z]代表匹配一个小写字母</td>
+</tr>
+<tr>
+<td align="center">[^]</td>
+<td align="center">逻辑非,表示匹配中括号中的一个非范围内的字符[^0-9]表示匹配一个不是数字的字符</td>
+</tr>
+</tbody></table>
+<h2 id="bash中其他特殊符号"><a href="#bash中其他特殊符号" class="headerlink" title="bash中其他特殊符号"></a>bash中其他特殊符号</h2><table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">‘’</td>
+<td align="center">单引号,在其中的所有特殊符号都没有特殊含义</td>
+</tr>
+<tr>
+<td align="center">“”</td>
+<td align="center">双引号,在双引号中的特殊符号,除了$ ` \ 外都没有特殊含义</td>
+</tr>
+<tr>
+<td align="center">``</td>
+<td align="center">反引号,在其中的内容都是系统命令,bash会先执行,和$()作用相同</td>
+</tr>
+<tr>
+<td align="center">$()</td>
+<td align="center">同上一个,引用系统命令</td>
+</tr>
+<tr>
+<td align="center">#</td>
+<td align="center">在shell监本中,#开头代表注释</td>
+</tr>
+<tr>
+<td align="center">$</td>
+<td align="center">用于调用变量的值,需要调用变量name的值时,需要用$name的方式得到变量的值</td>
+</tr>
+<tr>
+<td align="center">\</td>
+<td align="center">转义符,在\之后的字符失去特殊意义</td>
+</tr>
+</tbody></table>
+<h1 id="bash变量"><a href="#bash变量" class="headerlink" title="bash变量"></a>bash变量</h1><h2 id="用户自定义变量-变量设置规则"><a href="#用户自定义变量-变量设置规则" class="headerlink" title="用户自定义变量,变量设置规则"></a>用户自定义变量,变量设置规则</h2><ul>
+<li>变量不能以数字开头  </li>
+<li>在bash中,变量的默认类型都是字符串型,要进行数值运算需要指定变量类型为数值型  </li>
+<li>变量用等号连接时,两边不能有空格  </li>
+<li>变量的值如果有空格需要使用单引号或双引号包裹  </li>
+<li>变量的值中,可以使用\转移符  </li>
+<li>如果需要增加变量,可以进行变量值的叠加,不过需要用双引号包含”$变量名”或用${变量名}包含.  </li>
+<li>如果把命令的结果作为变量值赋予变量,则需要使用反引号或者$()包裹  </li>
+<li>环境变量建议大写,便于区分  </li>
+</ul>
+<h2 id="变量分类"><a href="#变量分类" class="headerlink" title="变量分类"></a>变量分类</h2><ul>
+<li><strong>用户自定义变量(本地变量)</strong>  </li>
+<li><strong>环境变量:</strong>这种变量主要保存的是和系统操作环境相关的数据  </li>
+<li><strong>位置参数变量:</strong>这种变量主要用来向脚本当中传递参数或数据,变量名不能自定义,变量作用是固定的  </li>
+<li><strong>预定义变量:</strong>是bash中已经定义好的变量,变量名不能自定义,变量作用是固定好的.  </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">name&#x3D;&quot;shen chao&quot;   </span><br><span class="line">变量定义</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">变量叠加  </span><br><span class="line">aa&#x3D;123  </span><br><span class="line">aa&#x3D;”$aa”456  </span><br><span class="line">aa&#x3D;$&#123;aaa&#125;789</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo $name </span><br><span class="line">变量调用</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set 变量查看</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unset name 变量删除</span><br></pre></td></tr></table></figure>
+
+<h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><ul>
+<li><strong>环境变量:</strong> 这种变量主要保存的是和系统操作环境相关的数据  </li>
+<li>用户自定义变量只在当前的shell中生效</li>
+<li>环境变量会在当前shell和这个shell的所有子shell当中生效.如果把环境变量写进配置文件中,那么环境变量会在所有的shell中生效.  </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export [变量名]&#x3D;[变量值] 申明变量  </span><br><span class="line">env 查询环境变量  </span><br><span class="line">unset [变量名] 删除变量  </span><br><span class="line">pstree 确定进程数</span><br></pre></td></tr></table></figure>
+
+<h3 id="系统常见环境变量"><a href="#系统常见环境变量" class="headerlink" title="系统常见环境变量"></a>系统常见环境变量</h3><h4 id="PATH-系统查找命令的路径"><a href="#PATH-系统查找命令的路径" class="headerlink" title="PATH 系统查找命令的路径"></a>PATH 系统查找命令的路径</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PATH&#x3D;&quot;$PATH&quot;:&#x2F;root&#x2F;sh PATH变量叠1  </span><br><span class="line">PATH&#x3D;$&#123;PATH&#125;:&#x2F;root&#x2F;sh PATH变量叠2</span><br></pre></td></tr></table></figure>
+
+<h4 id="位置参数变量"><a href="#位置参数变量" class="headerlink" title="位置参数变量"></a>位置参数变量</h4><p><strong>位置参数变量:</strong> 这种变量主要用来向脚本当中传递参数或数据,变量名不能自定义,变量作用是固定的  </p>
+<table>
+<thead>
+<tr>
+<th align="center">位置参数变量</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$n</td>
+<td align="center">n为数子,$0代表命令本身,$1-$9代表第一到第九个参数,十以上的参数需要用大括号包含,如${10}</td>
+</tr>
+<tr>
+<td align="center">$*</td>
+<td align="center">这个变量代表命令行中所有的参数,把所有的参数当成一个整体</td>
+</tr>
+<tr>
+<td align="center">$@</td>
+<td align="center">这个变量也代表所有的参数,但是每个参数区分对待</td>
+</tr>
+<tr>
+<td align="center">$#</td>
+<td align="center">这个参数代表命令行中所有参数的个数</td>
+</tr>
+</tbody></table>
+<h4 id="预定义变量"><a href="#预定义变量" class="headerlink" title="预定义变量"></a>预定义变量</h4><p><strong>预定义变量:</strong> 是bash中已经定义好的变量,变量名不能自定义,变量作用是固定好的  </p>
+<table>
+<thead>
+<tr>
+<th align="center">预定义变量</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$?</td>
+<td align="center">最后一次执行的命令的返回状态,如果是0,则上一个命令执行正确</td>
+</tr>
+<tr>
+<td align="center">$$</td>
+<td align="center">当前进程的进程号(PID)</td>
+</tr>
+<tr>
+<td align="center">$!</td>
+<td align="center">后台运行的最后一个进程的进程号(PID)</td>
+</tr>
+</tbody></table>
+<h4 id="接收键盘输入"><a href="#接收键盘输入" class="headerlink" title="接收键盘输入"></a>接收键盘输入</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read [选项] [变量名]</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">变量描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-p</td>
+<td align="center">“提示信息” 在等待read</td>
+</tr>
+<tr>
+<td align="center">-t</td>
+<td align="center">秒数 read命令会在指定的等待时间内等待用户输入</td>
+</tr>
+<tr>
+<td align="center">-n</td>
+<td align="center">字符数 read命令只接受指定的字符数</td>
+</tr>
+<tr>
+<td align="center">-s</td>
+<td align="center">隐藏输入数据,适用于机密信息的输入</td>
+</tr>
+</tbody></table>
+<h1 id="环境变量配置文件-简介"><a href="#环境变量配置文件-简介" class="headerlink" title="环境变量配置文件-简介"></a>环境变量配置文件-简介</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source [配置文件] </span><br><span class="line">重新加载修改过的配置文件</span><br></pre></td></tr></table></figure>
+
+<p><strong>环境变量配置文件作用:</strong> 环境变量配置文件中主要是定义系统默认环境变量如:PATH,HISTSIZE,PSI,HOSTNAME等  </p>
+<h2 id="主要的环境变量配置文件"><a href="#主要的环境变量配置文件" class="headerlink" title="主要的环境变量配置文件"></a>主要的环境变量配置文件</h2><p><strong>前三个是全局的,后两个是对登录用户有效的</strong>  </p>
+<ol>
+<li>/etc/profile(第一个读取的,优先级最高)  </li>
+<li>/etc/profile.d/*.sh  </li>
+<li>/etc/bashrc  </li>
+<li>~/.bash_profile  </li>
+<li>~/.bashrc  </li>
+</ol>
+<h1 id="系统默认语言"><a href="#系统默认语言" class="headerlink" title="系统默认语言"></a>系统默认语言</h1><p>在 <strong>/ETC/sysconfig/il8n</strong> 中保存着系统默认的语言环境,编码等信息 如 LANG=”zh_CN.UTF-8”  </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/16/manjaro%E5%8D%87%E7%BA%A7%E5%A4%B1%E8%B4%A5%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95/" rel="prev" title="manjaro升级失败处理办法">
+                manjaro升级失败处理办法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#bash基本功能"><span class="nav-number">1.</span> <span class="nav-text">bash基本功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#别名与快捷键"><span class="nav-number">1.1.</span> <span class="nav-text">别名与快捷键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bash常用快捷键"><span class="nav-number">1.2.</span> <span class="nav-text">bash常用快捷键</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#输出重定向"><span class="nav-number">2.</span> <span class="nav-text">输出重定向</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#多命令顺序执行与管道命令"><span class="nav-number">2.1.</span> <span class="nav-text">多命令顺序执行与管道命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通配符和其他特殊符号"><span class="nav-number">2.2.</span> <span class="nav-text">通配符和其他特殊符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bash中其他特殊符号"><span class="nav-number">2.3.</span> <span class="nav-text">bash中其他特殊符号</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bash变量"><span class="nav-number">3.</span> <span class="nav-text">bash变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用户自定义变量-变量设置规则"><span class="nav-number">3.1.</span> <span class="nav-text">用户自定义变量,变量设置规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量分类"><span class="nav-number">3.2.</span> <span class="nav-text">变量分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境变量"><span class="nav-number">3.3.</span> <span class="nav-text">环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统常见环境变量"><span class="nav-number">3.3.1.</span> <span class="nav-text">系统常见环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PATH-系统查找命令的路径"><span class="nav-number">3.3.1.1.</span> <span class="nav-text">PATH 系统查找命令的路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#位置参数变量"><span class="nav-number">3.3.1.2.</span> <span class="nav-text">位置参数变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#预定义变量"><span class="nav-number">3.3.1.3.</span> <span class="nav-text">预定义变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接收键盘输入"><span class="nav-number">3.3.1.4.</span> <span class="nav-text">接收键盘输入</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环境变量配置文件-简介"><span class="nav-number">4.</span> <span class="nav-text">环境变量配置文件-简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要的环境变量配置文件"><span class="nav-number">4.1.</span> <span class="nav-text">主要的环境变量配置文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#系统默认语言"><span class="nav-number">5.</span> <span class="nav-text">系统默认语言</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

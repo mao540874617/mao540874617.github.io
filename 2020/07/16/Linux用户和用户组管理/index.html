@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="用户配置文件 用户信息文件&#x2F;etc&#x2F;passwd 影子文件&#x2F;etc&#x2F;shadow 组信息文件&#x2F;etc&#x2F;group 组密码文件&#x2F;etc&#x2F;gshadow 用户管理相关文件 用户邮箱目录 用户模板目录   用户管理命令 用户添加命令 修改用户密码 修改用户信息 修改用户密码状态 删除用户 用户切换命令   用户组管理命令    用户配置文件用户信息文件&#x2F;etc&#x2F;passwd 第1字段：用户名称">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux用户和用户组管理">
+<meta property="og:url" content="http://yoursite.com/2020/07/16/Linux%E7%94%A8%E6%88%B7%E5%92%8C%E7%94%A8%E6%88%B7%E7%BB%84%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="用户配置文件 用户信息文件&#x2F;etc&#x2F;passwd 影子文件&#x2F;etc&#x2F;shadow 组信息文件&#x2F;etc&#x2F;group 组密码文件&#x2F;etc&#x2F;gshadow 用户管理相关文件 用户邮箱目录 用户模板目录   用户管理命令 用户添加命令 修改用户密码 修改用户信息 修改用户密码状态 删除用户 用户切换命令   用户组管理命令    用户配置文件用户信息文件&#x2F;etc&#x2F;passwd 第1字段：用户名称">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-16T04:25:48.000Z">
+<meta property="article:modified_time" content="2020-07-16T04:32:53.570Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/07/16/Linux用户和用户组管理/"/>
+
+
+
+
+
+  <title>Linux用户和用户组管理 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/16/Linux%E7%94%A8%E6%88%B7%E5%92%8C%E7%94%A8%E6%88%B7%E7%BB%84%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux用户和用户组管理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-16T12:25:48+08:00">
+                2020-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <!-- TOC -->
+
+<ul>
+<li><a href="#用户配置文件">用户配置文件</a><ul>
+<li><a href="#用户信息文件etcpasswd">用户信息文件/etc/passwd</a></li>
+<li><a href="#影子文件etcshadow">影子文件/etc/shadow</a></li>
+<li><a href="#组信息文件etcgroup">组信息文件/etc/group</a></li>
+<li><a href="#组密码文件etcgshadow">组密码文件/etc/gshadow</a></li>
+<li><a href="#用户管理相关文件">用户管理相关文件</a></li>
+<li><a href="#用户邮箱目录">用户邮箱目录</a></li>
+<li><a href="#用户模板目录">用户模板目录</a></li>
+</ul>
+</li>
+<li><a href="#用户管理命令">用户管理命令</a><ul>
+<li><a href="#用户添加命令">用户添加命令</a></li>
+<li><a href="#修改用户密码">修改用户密码</a></li>
+<li><a href="#修改用户信息">修改用户信息</a></li>
+<li><a href="#修改用户密码状态">修改用户密码状态</a></li>
+<li><a href="#删除用户">删除用户</a></li>
+<li><a href="#用户切换命令">用户切换命令</a></li>
+</ul>
+</li>
+<li><a href="#用户组管理命令">用户组管理命令</a></li>
+</ul>
+<!-- /TOC -->
+
+<h1 id="用户配置文件"><a href="#用户配置文件" class="headerlink" title="用户配置文件"></a>用户配置文件</h1><h2 id="用户信息文件-etc-passwd"><a href="#用户信息文件-etc-passwd" class="headerlink" title="用户信息文件/etc/passwd"></a>用户信息文件/etc/passwd</h2><ul>
+<li>第1字段：用户名称  </li>
+<li>第2字段：密码标志,x代表这个用户是有密码的，具体密码在shadow文件中。  </li>
+<li>第3字段：UID（用户ID）  <ul>
+<li>0：超级用户  </li>
+<li>1-499：系统用户（伪用户）:系统默认有很多伪用户，一旦删除系统会崩溃，也不能登录  </li>
+<li>500-65535： 普通用户  </li>
+</ul>
+</li>
+<li>第4字段：GID（用户初始组ID）  <ul>
+<li>初始组： 就是指用户一登陆就立刻拥有这个用户组的相关权限，每个用户的初始组只能有一个，一般就是和这个用户的用户名相同的组名作为这个用户的初始组。  </li>
+<li>附加组： 指用户可以加入多个其他的用户组，并拥有这些组的权限，附加组可以有多个。  </li>
+</ul>
+</li>
+<li>第5字段：用户说明  </li>
+<li>第6字段：家目录  <ul>
+<li>普通用户：/home/用户名/  </li>
+<li>超级用户：/root/  </li>
+</ul>
+</li>
+<li>第7字段：登陆之后的Shell  </li>
+</ul>
+<h2 id="影子文件-etc-shadow"><a href="#影子文件-etc-shadow" class="headerlink" title="影子文件/etc/shadow"></a>影子文件/etc/shadow</h2><ul>
+<li>第1字段：用户名  </li>
+<li>第2字段：加密密码  <ul>
+<li>加密算法升级为SHA512散列加密算法  </li>
+<li>如果密码是 “!!” 或 “*” 代表没有密码，不能登陆  </li>
+</ul>
+</li>
+<li>第3字段：密码最后一次修改日期 :使用1970年1月1日作为标准时间，每过一天时间戳加1  </li>
+<li>第4字段：两次密码的修改间隔时间（和第3字段相比）  </li>
+<li>第5字段：密码有效期（和第3字段相比）  </li>
+<li>第6字段：密码修改到期前的警告天数（和第5字段相比）  </li>
+<li>第7字段：密码过期后的宽限天数（和第五字段相比）  <ul>
+<li>0：代表密码过期后立即失效  </li>
+<li>-1：代表密码永远不会失效  </li>
+</ul>
+</li>
+<li>第8字段：账号失效时间  要用时间戳表示  </li>
+<li>第9字段：保留字段（暂时没有用）  </li>
+</ul>
+<h2 id="组信息文件-etc-group"><a href="#组信息文件-etc-group" class="headerlink" title="组信息文件/etc/group"></a>组信息文件/etc/group</h2><ul>
+<li>第1字段：组名  </li>
+<li>第2字段：组密码标志  </li>
+<li>第3字段：GID  </li>
+<li>第4字段：组中附加用户  </li>
+</ul>
+<h2 id="组密码文件-etc-gshadow"><a href="#组密码文件-etc-gshadow" class="headerlink" title="组密码文件/etc/gshadow"></a>组密码文件/etc/gshadow</h2><ul>
+<li>第1字段：组名  </li>
+<li>第2字段：组密码（不推荐）  </li>
+<li>第3字段：组管理员用户名  </li>
+<li>第4字段：组中附加用户  </li>
+</ul>
+<h2 id="用户管理相关文件"><a href="#用户管理相关文件" class="headerlink" title="用户管理相关文件"></a>用户管理相关文件</h2><h2 id="用户邮箱目录"><a href="#用户邮箱目录" class="headerlink" title="用户邮箱目录"></a>用户邮箱目录</h2><ul>
+<li><strong>/var/spool/mail/用户名</strong>  <br> 用户的邮箱，是在服务器中的用户的邮箱，不依赖外部服务器沟通  </li>
+</ul>
+<h2 id="用户模板目录"><a href="#用户模板目录" class="headerlink" title="用户模板目录"></a>用户模板目录</h2><p><strong>/etc/skel/ 用户模板目录</strong>,就是在注册新用户,用户的家目录初始状态会向这里复制,可以用来设置用户的初始家目录状态  </p>
+<h1 id="用户管理命令"><a href="#用户管理命令" class="headerlink" title="用户管理命令"></a>用户管理命令</h1><h2 id="用户添加命令"><a href="#用户添加命令" class="headerlink" title="用户添加命令"></a>用户添加命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd [选项] 用户名</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">选项的作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-u UID</td>
+<td align="center">手工指定用户的UID号</td>
+</tr>
+<tr>
+<td align="center">-d 家目录</td>
+<td align="center">手工指定用户的家目录</td>
+</tr>
+<tr>
+<td align="center">-c 用户说明</td>
+<td align="center">手工指定用户的说明</td>
+</tr>
+<tr>
+<td align="center">-g 组名</td>
+<td align="center">手工指定用户的初始组</td>
+</tr>
+<tr>
+<td align="center">-G 组名</td>
+<td align="center">指定用户的附加组</td>
+</tr>
+<tr>
+<td align="center">-s shell</td>
+<td align="center">手工指定用户的登录shell.默认是/bin/bash</td>
+</tr>
+</tbody></table>
+<h2 id="修改用户密码"><a href="#修改用户密码" class="headerlink" title="修改用户密码"></a>修改用户密码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd [选项] 用户名</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">参数的作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-S</td>
+<td align="center">查询用户密码的密码状态.仅root用户可用</td>
+</tr>
+<tr>
+<td align="center">-l</td>
+<td align="center">暂时锁定用户.仅root用户可用</td>
+</tr>
+<tr>
+<td align="center">-u</td>
+<td align="center">解锁用户.仅root用户可用</td>
+</tr>
+<tr>
+<td align="center">–stdi</td>
+<td align="center">可以通过管道符输出的数据作为用户的密码.</td>
+</tr>
+</tbody></table>
+<h2 id="修改用户信息"><a href="#修改用户信息" class="headerlink" title="修改用户信息"></a>修改用户信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod [选项] 用户名</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">选项的作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-u UID</td>
+<td align="center">手工指定用户的UID号</td>
+</tr>
+<tr>
+<td align="center">-c 用户说明</td>
+<td align="center">手工指定用户的说明</td>
+</tr>
+<tr>
+<td align="center">-G</td>
+<td align="center">指定用户的附加组</td>
+</tr>
+<tr>
+<td align="center">-L</td>
+<td align="center">暂时锁定用户(Lock)</td>
+</tr>
+<tr>
+<td align="center">-U</td>
+<td align="center">解锁用户(Unlock)</td>
+</tr>
+</tbody></table>
+<h2 id="修改用户密码状态"><a href="#修改用户密码状态" class="headerlink" title="修改用户密码状态"></a>修改用户密码状态</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chage [参数] 用户名</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">参数作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-l</td>
+<td align="center">列出用户的详细密码状态</td>
+</tr>
+<tr>
+<td align="center">-d 日期</td>
+<td align="center">修改密码最后一次修改的日期(shadow第3字段)</td>
+</tr>
+<tr>
+<td align="center">-m 天数</td>
+<td align="center">两次密码修改间隔(4字段)</td>
+</tr>
+<tr>
+<td align="center">-M 天数</td>
+<td align="center">密码有效期(5字段)</td>
+</tr>
+<tr>
+<td align="center">-W 天数</td>
+<td align="center">密码过期前警告天数(6字段)</td>
+</tr>
+<tr>
+<td align="center">-I 天数</td>
+<td align="center">密码过期后宽限天数(7字段)</td>
+</tr>
+<tr>
+<td align="center">-E 日期</td>
+<td align="center">账号失效时间(8字段)</td>
+</tr>
+</tbody></table>
+<h2 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">userdel [选项] 用户名</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">参数作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-r</td>
+<td align="center">删除用户的同时删除用户家目录(一般都要加这个参数)</td>
+</tr>
+</tbody></table>
+<h2 id="用户切换命令"><a href="#用户切换命令" class="headerlink" title="用户切换命令"></a>用户切换命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su [选项] 用户名</span><br></pre></td></tr></table></figure>
+<p>(只用一个横杠)代表连带用户的环境变量一起切换一定不能省略,不然容易报错<br>选项 |选项的作用<br>:—:|:—:<br>c |仅执行一次命令而不切换用户身份  <br> su - root -c “useradd user3”  <br> 切换成root,然后执行useradd命令  </p>
+<h1 id="用户组管理命令"><a href="#用户组管理命令" class="headerlink" title="用户组管理命令"></a>用户组管理命令</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd [选项] 组名</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">参数的意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-g GID</td>
+<td align="center">指定组ID</td>
+</tr>
+</tbody></table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupmod [选项] 组名</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">参数的意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-g GID</td>
+<td align="center">修改组ID</td>
+</tr>
+<tr>
+<td align="center">-n 新组名</td>
+<td align="center">修改组名</td>
+</tr>
+<tr>
+<td align="center">groupmod -n 新组名 老组名</td>
+<td align="center">将老组名换成新组名</td>
+</tr>
+</tbody></table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupdel 组名</span><br></pre></td></tr></table></figure>
+<ol>
+<li>如果组中有初始用户,因为初始用户和初始组是相互依存的,所以这个组不能删除  </li>
+<li>如果组中都是附加用户,那么这个组可以删除不影响  </li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gpasswd [选项] 组名  </span><br><span class="line">把用户添加进组或从组中删除,(加入的用户都是以附加用户的身份)</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">选项的意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-a 用户名</td>
+<td align="center">把用户加入组</td>
+</tr>
+<tr>
+<td align="center">-d 用户名</td>
+<td align="center">把用户从组中删除</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/16/manjaro%E5%8D%87%E7%BA%A7%E5%A4%B1%E8%B4%A5%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95/" rel="next" title="manjaro升级失败处理办法">
+                <i class="fa fa-chevron-left"></i> manjaro升级失败处理办法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/16/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="prev" title="Linux常用命令">
+                Linux常用命令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#用户配置文件"><span class="nav-number">1.</span> <span class="nav-text">用户配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用户信息文件-etc-passwd"><span class="nav-number">1.1.</span> <span class="nav-text">用户信息文件&#x2F;etc&#x2F;passwd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#影子文件-etc-shadow"><span class="nav-number">1.2.</span> <span class="nav-text">影子文件&#x2F;etc&#x2F;shadow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组信息文件-etc-group"><span class="nav-number">1.3.</span> <span class="nav-text">组信息文件&#x2F;etc&#x2F;group</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组密码文件-etc-gshadow"><span class="nav-number">1.4.</span> <span class="nav-text">组密码文件&#x2F;etc&#x2F;gshadow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户管理相关文件"><span class="nav-number">1.5.</span> <span class="nav-text">用户管理相关文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户邮箱目录"><span class="nav-number">1.6.</span> <span class="nav-text">用户邮箱目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户模板目录"><span class="nav-number">1.7.</span> <span class="nav-text">用户模板目录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户管理命令"><span class="nav-number">2.</span> <span class="nav-text">用户管理命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用户添加命令"><span class="nav-number">2.1.</span> <span class="nav-text">用户添加命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改用户密码"><span class="nav-number">2.2.</span> <span class="nav-text">修改用户密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改用户信息"><span class="nav-number">2.3.</span> <span class="nav-text">修改用户信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改用户密码状态"><span class="nav-number">2.4.</span> <span class="nav-text">修改用户密码状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除用户"><span class="nav-number">2.5.</span> <span class="nav-text">删除用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户切换命令"><span class="nav-number">2.6.</span> <span class="nav-text">用户切换命令</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户组管理命令"><span class="nav-number">3.</span> <span class="nav-text">用户组管理命令</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
