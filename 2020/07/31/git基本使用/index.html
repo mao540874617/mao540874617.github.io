@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="git使用git的简单介绍git是一种先进的分布式版本控制系统，其特点是根本没有中央服务器，每个人的电脑上都有一个完整的版本库，并且git有强大的分支管理机制，非常适合多人协作完成任务。 git的初始配置 在Linux系统中，git的配置文件保存在~&#x2F;.gitconfig文件中，执行任何git的配置命令都会自动创建这个文件。  123git config --global user.email &amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git基本使用">
+<meta property="og:url" content="http://yoursite.com/2020/07/31/git%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="git使用git的简单介绍git是一种先进的分布式版本控制系统，其特点是根本没有中央服务器，每个人的电脑上都有一个完整的版本库，并且git有强大的分支管理机制，非常适合多人协作完成任务。 git的初始配置 在Linux系统中，git的配置文件保存在~&#x2F;.gitconfig文件中，执行任何git的配置命令都会自动创建这个文件。  123git config --global user.email &amp;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-31T01:57:31.000Z">
+<meta property="article:modified_time" content="2020-07-29T14:43:36.733Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/07/31/git基本使用/"/>
+
+
+
+
+
+  <title>git基本使用 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/31/git%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">git基本使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-31T09:57:31+08:00">
+                2020-07-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="git使用"><a href="#git使用" class="headerlink" title="git使用"></a>git使用</h1><h2 id="git的简单介绍"><a href="#git的简单介绍" class="headerlink" title="git的简单介绍"></a>git的简单介绍</h2><p>git是一种先进的分布式版本控制系统，其特点是根本没有中央服务器，每个人的电脑上都有一个完整的版本库，并且git有强大的分支管理机制，非常适合多人协作完成任务。</p>
+<h2 id="git的初始配置"><a href="#git的初始配置" class="headerlink" title="git的初始配置"></a>git的初始配置</h2><ul>
+<li>在Linux系统中，git的配置文件保存在~/.gitconfig文件中，执行任何git的配置命令都会自动创建这个文件。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email &quot;xxxxxx@qq.com&quot;</span><br><span class="line">git config --global user.name &quot;xxxxxx&quot;</span><br><span class="line">#在开始的时候设置全局的git用户名和邮箱</span><br></pre></td></tr></table></figure>
+<h2 id="git常用命令"><a href="#git常用命令" class="headerlink" title="git常用命令"></a>git常用命令</h2><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">参数</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">git init</td>
+<td align="center"></td>
+<td align="center">初始化新仓库(版本库,repository)</td>
+</tr>
+<tr>
+<td align="center">git clone (URL(地址,https://……)</td>
+<td align="center"></td>
+<td align="center">克隆仓库</td>
+</tr>
+<tr>
+<td align="center">git status</td>
+<td align="center"></td>
+<td align="center">查看仓库状态</td>
+</tr>
+<tr>
+<td align="center">git diff (file)</td>
+<td align="center"></td>
+<td align="center">可以查看文件被怎么修改了</td>
+</tr>
+<tr>
+<td align="center">git add (filename)</td>
+<td align="center"></td>
+<td align="center">提交文件</td>
+</tr>
+<tr>
+<td align="center">git commit  “注释信息”</td>
+<td align="center">-m</td>
+<td align="center">提交文件到仓库中</td>
+</tr>
+<tr>
+<td align="center">git rm [参数] (filename)</td>
+<td align="center"></td>
+<td align="center">删除版本库和项目目录中的文件</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">–cached</td>
+<td align="center">只删除版本库中的文件</td>
+</tr>
+<tr>
+<td align="center">git log</td>
+<td align="center"></td>
+<td align="center">查看提交历史记录</td>
+</tr>
+<tr>
+<td align="center">git feflog</td>
+<td align="center"></td>
+<td align="center">查看命令历史</td>
+</tr>
+</tbody></table>
+<h2 id="git各个区的说明"><a href="#git各个区的说明" class="headerlink" title="git各个区的说明"></a>git各个区的说明</h2><ol>
+<li><strong>工作区</strong> : 是还没有添加到(git add .) 的区域,代表正在操作的内容</li>
+<li><strong>暂存区</strong> : (git add .)之后文件到达的地方,类似游戏的存档点,位于工作区和版本库之间</li>
+<li><strong>版本库</strong> : 可以简单理解成一个目录,在这个目录中的所有文件都可以被git管理起来,每个文件的增改查删都可以被追踪历史和还原</li>
+</ol>
+<h3 id="工作区的管理"><a href="#工作区的管理" class="headerlink" title="工作区的管理"></a>工作区的管理</h3><p>命令|参数|作用<br>|:—:|:—:|:—:|<br>|git clean||用来从工作目录中删除没有被跟踪(tracked)过的文件|<br>||-n|显示哪些文件将会被删除|<br>||-f|删除目录中没有被跟踪的文件|<br>||-df|删除目录中没有被跟踪的文件和文件夹|</p>
+<h3 id="暂存区的管理"><a href="#暂存区的管理" class="headerlink" title="暂存区的管理"></a>暂存区的管理</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">参数</th>
+<th align="center">作用</th>
+<th align="center">注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">git add</td>
+<td align="center">.</td>
+<td align="center">提交所有修改和新增的文件</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">git add</td>
+<td align="center">-u</td>
+<td align="center">只提交修改文件不提交新文件</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">git checkout – (file)</td>
+<td align="center"></td>
+<td align="center">将（file）在工作区的修改全部撤销</td>
+<td align="center">–非常重要，没有它就会变成切换分支的命令</td>
+</tr>
+<tr>
+<td align="center">git reset HEAD (file)</td>
+<td align="center"></td>
+<td align="center">将已经提交到暂存区的文件，重新拿回工作区</td>
+<td align="center">HEAD表示最新的版本</td>
+</tr>
+<tr>
+<td align="center">git ls-files</td>
+<td align="center">-s</td>
+<td align="center">查看暂存区文件列表</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p><strong>‘git checkout –’</strong> 其实是用版本库的文件版本替换掉工作区的版本</p>
+<h3 id="版本库管理"><a href="#版本库管理" class="headerlink" title="版本库管理"></a>版本库管理</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">参数</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">git reset</td>
+<td align="center">–hard</td>
+<td align="center">清空工作区和暂存区的改动</td>
+</tr>
+<tr>
+<td align="center">git reset</td>
+<td align="center">–hard (版本号)</td>
+<td align="center">恢复到指定提交版本（提前用git log 查看版本号）</td>
+</tr>
+</tbody></table>
+<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">参数</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">git branch</td>
+<td align="center"></td>
+<td align="center">查看分支</td>
+</tr>
+<tr>
+<td align="center">git branch</td>
+<td align="center">(name)</td>
+<td align="center">创建分支</td>
+</tr>
+<tr>
+<td align="center">git switch</td>
+<td align="center">(name)</td>
+<td align="center">新版git,切换分支</td>
+</tr>
+<tr>
+<td align="center">git checkout</td>
+<td align="center">(name)</td>
+<td align="center">旧版git,切换分支</td>
+</tr>
+<tr>
+<td align="center">git branch</td>
+<td align="center">-d (name)</td>
+<td align="center">删除分支</td>
+</tr>
+<tr>
+<td align="center">git merge</td>
+<td align="center">(name)</td>
+<td align="center">合并某分支到当前的分支</td>
+</tr>
+</tbody></table>
+<h3 id="分支管理特殊情况"><a href="#分支管理特殊情况" class="headerlink" title="分支管理特殊情况"></a>分支管理特殊情况</h3><ol>
+<li><strong>git rebase master</strong> 如果在向master合并分支的时候,master已经被别人向前推进了,通过这条命令将分支的提交的移到master的最新点<strong>养成习惯</strong></li>
+<li>如果现在正在某分支工作到一半需要临时切换到分支,但是却不想提交工作区,可以用git stash命令将工作区暂时存起来,然后切换分支<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">参数</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">git stash</td>
+<td align="center"></td>
+<td align="center">暂存工作</td>
+</tr>
+<tr>
+<td align="center">git stash list</td>
+<td align="center"></td>
+<td align="center">查看暂存区列表</td>
+</tr>
+<tr>
+<td align="center">git stash pop</td>
+<td align="center">(暂存区标号)</td>
+<td align="center">弹出暂存区,继续工作</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><h3 id="和远程git服务器建立连接"><a href="#和远程git服务器建立连接" class="headerlink" title="和远程git服务器建立连接"></a>和远程git服务器建立连接</h3><ol>
+<li><strong>SSH key</strong>会保存在 <strong>~/.ssh</strong> 中的 <strong>id_rsa</strong> 和 <strong>id_rsa.pub</strong> 两个文件中,<strong>id_rsa</strong>是私钥不能告诉任何人,<strong>id_rsa.pub</strong>是公钥</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 创建SSH key</span><br><span class="line">ssh-keygen -t rsa -C &quot;email@.com&quot; # 之后一路回车</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>登录github,在<strong>Account setting</strong> -&gt; <strong>SSH Keys</strong> -&gt; <strong>Add SSH Key</strong> -&gt; <strong>黏贴id_rsa.pub内容</strong> -&gt; <strong>Add Key</strong></li>
+</ol>
+<h3 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h3><p>添加远程仓库有两种方法:</p>
+<ol>
+<li><p>在远程和本地已经各自创建了两个仓库,现在想将这两个仓库关联起来</p>
+<ol>
+<li>进入到<strong>本地</strong>的目标仓库</li>
+<li>git remote add origin (ssh地址)</li>
+</ol>
+</li>
+<li><p>克隆远程仓库到本地<br>git clone (远程仓库地址https或者ssh,推荐ssh)</p>
+</li>
+</ol>
+<p><strong>远程仓库的默认名字是origin</strong></p>
+<h3 id="远程仓库多人协助"><a href="#远程仓库多人协助" class="headerlink" title="远程仓库多人协助"></a>远程仓库多人协助</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">参数</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">git remote</td>
+<td align="center">-v</td>
+<td align="center">显示远程库详细信息</td>
+</tr>
+<tr>
+<td align="center">git <strong>pull</strong></td>
+<td align="center"></td>
+<td align="center">远程和本地分支同名,直接执行拉去远程分支的更新</td>
+</tr>
+<tr>
+<td align="center">git <strong>pull</strong> origin xxx</td>
+<td align="center"></td>
+<td align="center">拉取远程origin主机的xxxx分支与当前分支合并</td>
+</tr>
+<tr>
+<td align="center">git <strong>push</strong> origin (本地分支)</td>
+<td align="center"></td>
+<td align="center">将分支推送到远程库的对应分支上</td>
+</tr>
+<tr>
+<td align="center">git push origin</td>
+<td align="center">–delete branch-name</td>
+<td align="center">删除远程分支</td>
+</tr>
+<tr>
+<td align="center">git checkout</td>
+<td align="center">-b branch-name origin/branch-name</td>
+<td align="center">在本地创建和远程分支关联的本地分支</td>
+</tr>
+<tr>
+<td align="center">git branch</td>
+<td align="center">–set-upstream branch-name origin/branch-name</td>
+<td align="center">建立本地分支和远程分支的联系</td>
+</tr>
+</tbody></table>
+<h4 id="多人协助基本策略"><a href="#多人协助基本策略" class="headerlink" title="多人协助基本策略"></a>多人协助基本策略</h4><ul>
+<li><strong>master</strong> 分支是主分支,时刻与远程同步</li>
+<li><strong>dev</strong> 分支是开发分支,时刻与远程同步</li>
+<li><strong>bug</strong> 分支是本地修复bug分支,不需要和远程同步</li>
+<li><strong>feature</strong> 分支是开发分支,合作开发一个项目时可以和远程保持同步</li>
+</ul>
+<p><strong>多人协作工作模式:</strong></p>
+<ol>
+<li>首先试图使用 git push origin branch-name 推送自己的修改</li>
+<li>如果推送失败,则因为远程分支已经有更新,使用git pull试图拉取更新</li>
+<li>如果拉取中合并有冲突,则解决冲突,并在本地提交</li>
+<li>最后再尝试使用git push origin branch-name推送</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/22/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F30%E5%85%A5%E9%97%A8/" rel="next" title="正则表达式30入门">
+                <i class="fa fa-chevron-left"></i> 正则表达式30入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#git使用"><span class="nav-number">1.</span> <span class="nav-text">git使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#git的简单介绍"><span class="nav-number">1.1.</span> <span class="nav-text">git的简单介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git的初始配置"><span class="nav-number">1.2.</span> <span class="nav-text">git的初始配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git常用命令"><span class="nav-number">1.3.</span> <span class="nav-text">git常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git各个区的说明"><span class="nav-number">1.4.</span> <span class="nav-text">git各个区的说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工作区的管理"><span class="nav-number">1.4.1.</span> <span class="nav-text">工作区的管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#暂存区的管理"><span class="nav-number">1.4.2.</span> <span class="nav-text">暂存区的管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#版本库管理"><span class="nav-number">1.4.3.</span> <span class="nav-text">版本库管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支管理"><span class="nav-number">1.5.</span> <span class="nav-text">分支管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分支管理特殊情况"><span class="nav-number">1.5.1.</span> <span class="nav-text">分支管理特殊情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程仓库"><span class="nav-number">1.6.</span> <span class="nav-text">远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#和远程git服务器建立连接"><span class="nav-number">1.6.1.</span> <span class="nav-text">和远程git服务器建立连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加远程仓库"><span class="nav-number">1.6.2.</span> <span class="nav-text">添加远程仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程仓库多人协助"><span class="nav-number">1.6.3.</span> <span class="nav-text">远程仓库多人协助</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#多人协助基本策略"><span class="nav-number">1.6.3.1.</span> <span class="nav-text">多人协助基本策略</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
